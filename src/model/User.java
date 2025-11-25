@@ -4,8 +4,13 @@ package model;
  * Represents a generic user in the system.
  */
 public abstract class User {
-    private String name;
-    private String password;
+    protected String name;
+    protected String password;
+
+    public User(String name, String password) {
+        this.name = name;
+        this.password = password;
+    }
     /**
      * Returns the username for this user.
      * @return the username
@@ -21,4 +26,6 @@ public abstract class User {
     public String getPassword() {
         return password;
     }
+
+    public abstract boolean hasAdminAccess();
 }
