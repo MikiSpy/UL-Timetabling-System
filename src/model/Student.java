@@ -4,13 +4,16 @@ package model;
  * Represents a student enrolled in a UL programme.
  */
 public class Student extends User {
+    private String id;
+    private Programme programme;
+    private int year;
 
     /**
      * Returns the programme the student is enrolled in.
      * @return the programme
      */
     public Programme getProgramme() {
-        return null;
+        return programme;
     }
 
     /**
@@ -18,6 +21,6 @@ public class Student extends User {
      * @return the year
      */
     public int getYear() {
-        return 0;
+        return year;
     }
 }

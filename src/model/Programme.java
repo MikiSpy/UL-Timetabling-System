@@ -4,6 +4,8 @@ package model;
  * Represents an academic programme at the University of Limerick.
  */
 public class Programme {
+    private String name;
+    private Module[] modules;
 
     /**
      * Returns the name of the programme.
@@ -20,6 +22,6 @@ public class Programme {
      * @return array of modules
      */
     public Module[] getModulesForSemester(int year, int semester) {
-        return new Module[0];
+        return modules;
     }
 }
