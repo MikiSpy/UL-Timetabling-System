@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Timetable {
     private ArrayList<TimetableSlot> slots = new ArrayList<>();
 
+    public Timetable() {}
+
     Timetable(ArrayList<TimetableSlot> slots) {
         this.slots = slots;
     }

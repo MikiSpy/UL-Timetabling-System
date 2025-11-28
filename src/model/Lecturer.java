@@ -21,6 +21,10 @@ public class Lecturer extends User {
         this.modules = modules;
     }
 
+    public String getId() {
+        return id;
+    }
+
     /**
      * Returns the list of modules this lecturer teaches.
      * @return an array of modules
@@ -32,5 +36,9 @@ public class Lecturer extends User {
     @Override
     public boolean hasAdminAccess() {
         return false;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }

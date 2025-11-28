@@ -2,12 +2,13 @@ package model;
 
 import util.WeeksPattern;
 import java.time.LocalTime;
-enum SessionType {LECTURE, LAB, TUTORIAL};
+
 /**
  * Represents a single scheduled session (lecture, lab, or tutorial).
  */
 public class TimetableSlot {
 
+    private Module module;
     private String day;
     private LocalTime startTime, endTime;
     private int semester;
@@ -16,7 +17,6 @@ public class TimetableSlot {
     private Lecturer lecturer;
     private StudentGroup studentGroup;
     private Subgroup subgroup;
-    private Module module;
     private SessionType type;
 
     public TimetableSlot(String day, LocalTime startTime, LocalTime endTime,
@@ -53,5 +53,9 @@ public class TimetableSlot {
                 other.startTime.isBefore(endTime);
         boolean weekOverlap = WeeksPattern.intersects(this.weeks, other.weeks);
         return timeOverlap && weekOverlap;
+    }
+
+    public StudentGroup getStudentGroup() {
+        return studentGroup;
     }
 }

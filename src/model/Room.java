@@ -3,9 +3,15 @@ package model;
 /**
  * Represents a generic room in the university.
  */
-public abstract class Room {
+public class Room {
     private String type, number;
     private int capacity;
+
+    Room(String type, String number, int capacity) {
+        this.type = type;
+        this.number = number;
+        this.capacity = capacity;
+    }
 
     /**
      * Returns the capacity of the room.
@@ -21,5 +27,9 @@ public abstract class Room {
      */
     public String getNumber() {
         return number;
+    }
+
+    public String getType() {
+        return type;
     }
 }
