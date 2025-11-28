@@ -1,4 +1,78 @@
-code,title,lectureHours,labHours,tutorialHours,lecturerIds
-CS101,Intro to Programming,3,2,1,L1
-MA101,Calculus I,3,0,2,L2
-CS102,Object-Oriented Programming,3,2,1,L1
+Code,Title,LectureHours,LabHours,TutorialHours,LecturerIds
+CS4012,Representation and Modelling,2,2,1,P1
+CS4141,Introduction to Programming,2,2,0,P2
+CS4221,Foundations of Computer Science 1,2,2,0,P3
+ET4011,Fundamentals of Computer Organisation,2,2,1,P4
+MA4111,Discrete Mathematics,2,0,1,P5
+CS4043,Games Modelling Design,2,1,1,P6
+CS4222,Software Development,2,2,1,P2
+CS4182,Foundations of Computer Science 2,2,0,P1
+ET4162,Computing System Organisation,2,2,1,P7
+MA4402,Computer Maths 2,2,1,1,P8
+CS4013,Object Oriented Development,2,2,1,P1
+CS4023,Operating Systems,2,2,1,P9
+CS4416,Database Systems,2,1,1,P10
+CS4004,Software Testing and Inspection,2,1,0,P11
+CS4178,Software Requirements and Modelling,2,1,1,P12
+CS4006,Intelligent Systems,2,2,1,P13
+CS4076,Event Driven Programming,2,1,1,P14
+CS4115,Data Structures and Algorithms,2,1,1,P15
+CS4815,Computer Graphics,2,2,1,P16
+MA4413,Statistics for Computing,2,1,1,P17
+CS4457,Project Management and Practice,2,2,0,P16
+CS4187,Professional Issues in Computing,2,2,1,P18
+CS4084,Mobile Application Development,2,1,1,P19
+CS4116,Software Development Project,2,2,1,P20
+CS4106,Machine Learning: Methods and Applications,2,2,0,P13
+CS4617,Computer Systems Project 1,2,2,1,P21
+CS4125,Systems Analysis and Design,2,1,1,P14
+CS4207,Advanced Programming Concepts and Practices,2,2,1,P22
+CS4337,Big Data Management and Security,2,1,1,P23
+CS4287,Neural Computing,2,1,1,P24
+CS4618,Computer Systems Project 2,2,2,1,P21
+CS4227,Software Design and Architecture,2,1,1,P25
+CS4158,Programming Language Technology,2,1,1,P26
+CS4168,Data Mining,2,1,1,P10
+CE4703,Computer Software 3,2,2,1,P27
+CE4607,Computer Networks 1,2,2,1,P28
+ET4023,Introduction to Security and Cryptogaphy,2,1,1,P29
+ED5081,Introduction to Web and Database Technology,2,1,1,P30
+ET4033,Sustainability and Technology,2,1,0,P31
+CS4023,Operating Systems,2,1,1,P9
+ET4024,Next Generation,2,2,1,P32
+ET4014,Data Security,2,2,1,P33
+ET4334,Introduction To Cloud Computing,2,1,0,P34
+ED5042,Mobile App Development,2,2,0,P35
+ET4047,Embedded Software,2,1,0,P36
+EE6003,Converged Networks,2,1,1,P28
+CE5041,CyberSecurity Law And Regulatioins,2,0,1,P37
+ET4244,Outcome Based Learning Laboratory,2,2,0,P38
+ET4437,Distributed Computing and Java,2,1,1,P39
+CE4051,Introduction to Engineering and Machine Learning,2,1,1,P40
+CE5031,OT/ICS Networks and Protocols,2,1,1,P33
+CE4706,Software Engineering 1,2,2,0,P32
+ET4307,Applied Cloud Computing,2,1,0,P34
+ET4927,Project 1,2,2,0,P34
+EE6022,Biometrics,2,1,1,P29
+CE5032,Secure OT/ICS Networks,2,1,1,P33
+CE5022,Log File and Event Analysis,2,1,0,P37
+ET4028,Host and Network Security,2,1,0,P27
+ET4928,Project 2,2,2,0,P34
+CS4151,Digital Modelling and Animation,2,2,1,P41
+CS4071,Virtual and Augmented Reality Design,2,1,1,P41
+CS4084,Mobile Application Development,2,1,0,P19
+CS4096,Artificial Intelligence for Games,2,2,0,P6
+CS4106,Machine Learning: Methods and Applications,2,1,0,P13
+CS4085,Computer Graphics II: Tools and Techniques,2,1,1,P6
+CS4197,Computer Games Development Project 1,2,1,0,P21
+CS4198,Computer Games Development Project 2,2,1,0,P21
+CS4067,Writing Games Analysis,2,1,1,P6
+
+
+
+
+
+
+
+
+
