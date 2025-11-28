@@ -8,21 +8,21 @@ import java.time.LocalTime;
  */
 public class TimetableSlot {
 
-    private Module module;
     private String day;
     private LocalTime startTime, endTime;
     private int semester;
     private String weeks;
     private Room room;
     private Lecturer lecturer;
-    private StudentGroup studentGroup;
+    private String studentGroupId; // store the ID directly
     private Subgroup subgroup;
+    private Module module;
     private SessionType type;
+    private StudentGroup studentGroup;
 
-    public TimetableSlot(String day, LocalTime startTime, LocalTime endTime,
-                         int semester, String weeks, Room room,
-                         Lecturer lecturer, StudentGroup studentGroup,
-                         Subgroup subgroup, Module module, SessionType type) {
+    public TimetableSlot(String day, LocalTime startTime, LocalTime endTime, int semester, String weeks,
+                         Room room, Lecturer lecturer, String studentGroupId, Subgroup subgroup,
+                         Module module, SessionType type) {
         this.day = day;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -30,10 +30,14 @@ public class TimetableSlot {
         this.weeks = weeks;
         this.room = room;
         this.lecturer = lecturer;
-        this.studentGroup = studentGroup;
+        this.studentGroupId = studentGroupId; // store ID
         this.subgroup = subgroup;
         this.module = module;
         this.type = type;
+    }
+
+    public TimetableSlot() {
+
     }
 
     public String getDay() { return day; }
@@ -55,6 +59,9 @@ public class TimetableSlot {
         return timeOverlap && weekOverlap;
     }
 
+    public String getStudentGroupId() {
+        return studentGroupId;
+    }
     public StudentGroup getStudentGroup() {
         return studentGroup;
     }

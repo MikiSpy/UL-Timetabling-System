@@ -4,19 +4,27 @@ package model;
  * Represents a generic user in the system.
  */
 public abstract class User {
+    protected String id;
     protected String name;
     protected String password;
+    protected String email;
 
     public User(String name, String password) {
-        this.name = name;
+        this.id = name;
         this.password = password;
     }
     /**
      * Returns the username for this user.
      * @return the username
      */
-    public String getUsername() {
+    public String getName() {
         return name;
+    }
+    public String getId() {
+        return id;
+    }
+    public String getEmail() {
+        return email;
     }
 
     /**

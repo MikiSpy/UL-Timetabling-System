@@ -4,10 +4,10 @@ package model;
  * Represents an academic module.
  */
 public class Module {
-    private String code, title, weeks;
+    private String code, title, weeks, programmeCode;
     private int lectureHours, labHours, tutorialHours, year, semester;
 
-    Module(String code, String title, int lectureHours, int labHours, int tutorialHours, int year, int semester, String weeks) {
+    public Module(String code, String title, int lectureHours, int labHours, int tutorialHours, int year, int semester, String weeks, String programmeCode) {
         this.code = code;
         this.title = title;
         this.lectureHours = lectureHours;
@@ -16,6 +16,7 @@ public class Module {
         this.year = year;
         this.semester = semester;
         this.weeks = weeks;
+        this.programmeCode = programmeCode;
     }
     /**
      * Returns the module code.
@@ -55,6 +56,10 @@ public class Module {
 
     public String getWeeks() {
         return weeks;
+    }
+
+    public String getProgrammeCode(){
+        return programmeCode;
     }
 
 

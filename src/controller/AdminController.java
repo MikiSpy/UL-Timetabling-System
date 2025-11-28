@@ -11,7 +11,7 @@ import java.time.LocalTime;
 public class AdminController {
     private TimetableRepository repo;
 
-    AdminController(TimetableRepository repo) {
+    public AdminController(TimetableRepository repo) {
         this.repo = repo;
     }
 
@@ -25,7 +25,7 @@ public class AdminController {
                                        int semester, String weeks, Room room,
                                        Lecturer lecturer, StudentGroup studentGroup,
                                        Subgroup subgroup, Module module, SessionType type) {
-        TimetableSlot slot = new TimetableSlot(day, startTime, endTime, semester, weeks, room, lecturer, studentGroup, subgroup, module, type);
+        TimetableSlot slot = new TimetableSlot(day, startTime, endTime, semester, weeks, room, lecturer, studentGroup.getId(), subgroup, module, type);
 
         Timetable timetable = repo.findAll();
 

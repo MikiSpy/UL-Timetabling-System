@@ -12,6 +12,7 @@ public class Lecturer extends User {
 
     public Lecturer(String name, String password, String id, String email) {
         super(name, password);
+        this.name = name;
         this.modules = new Module[0];
         this.id = id;
         this.email = email;
@@ -38,7 +39,7 @@ public class Lecturer extends User {
         return false;
     }
 
-    public String getEmail() {
-        return email;
+    public String getName() {
+        return name;
     }
 }

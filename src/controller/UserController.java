@@ -9,44 +9,68 @@ import util.CSVUtil;
 /**
  * Handles user login and authentication.
  */
-
 public class UserController {
 
-    private static final String USERS_FILE = "data/users.csv";
-    private CSVUtil csvUtil = new CSVUtil();
+    private final CSVUtil csvUtil = new CSVUtil();
+    private static final String STUDENTS_FILE = "data/students.csv";
+    private static final String LECTURERS_FILE = "data/lecturers.csv";
+    private static final String ADMINS_FILE = "data/admins.csv";
 
     /**
      * Attempts to log a user in.
-     * @param username username input
+     * @param idInput id input
      * @param password password input
      * @return the authenticated user, or null if login fails
      */
-    public User login(String username, String password) {
-        String[][] rows = csvUtil.readCSV(USERS_FILE);
+    public User login(String idInput, String password) {
+        // Try students
+        User user = loginFromCSV(STUDENTS_FILE, idInput, password, "STUDENT");
+        if (user != null) return user;
 
-        for (int i = 1; i < rows.length; i++) {
+        // Try lecturers
+        user = loginFromCSV(LECTURERS_FILE, idInput, password, "LECTURER");
+        if (user != null) return user;
+
+        // Try admins
+        return loginFromCSV(ADMINS_FILE, idInput, password, "ADMIN");
+    }
+
+
+    private User loginFromCSV(String file, String idInput, String password, String role) {
+        String[][] rows = csvUtil.readCSV(file);
+
+        for (int i = 1; i < rows.length; i++) { // skip header
             String[] row = rows[i];
             String id = row[0];
             String name = row[1];
             String email = row[2];
             String storedPassword = row[3];
-            String role = row[4];
 
-            if (name.equals(username) && storedPassword.equals(password)) {
-                return createUser(id, name, email, storedPassword, role);
+            // For students, read studentGroupId
+            String studentGroupId = null;
+            if ("STUDENT".equalsIgnoreCase(role) && row.length > 4) {
+                studentGroupId = row[4];
+            }
+
+            // Check using ID and password
+            if (id.equals(idInput) && storedPassword.equals(password)) {
+                return createUser(id, name, email, storedPassword, role, studentGroupId);
             }
         }
         return null;
     }
 
-    private User createUser(String id, String name, String email, String password, String role) {
+
+
+    private User createUser(String id, String name, String email, String password, String role, String studentGroupId) {
         switch (role.toUpperCase()) {
             case "ADMIN":
                 return new Admin(name, password);
             case "LECTURER":
                 return new Lecturer(name, password, id, email);
             case "STUDENT":
-                return new Student(name, password, id, email);
+                // assign studentGroupId here
+                return new Student(name, password, id, null, 1, studentGroupId);
             default:
                 throw new IllegalArgumentException("Unknown role: " + role);
         }

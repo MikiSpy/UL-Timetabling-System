@@ -1,0 +1,4 @@
+code,title,lectureHours,labHours,tutorialHours,lecturerIds
+CS101,Intro to Programming,3,2,1,L1
+MA101,Calculus I,3,0,2,L2
+CS102,Object-Oriented Programming,3,2,1,L1

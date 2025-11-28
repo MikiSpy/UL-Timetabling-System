@@ -1,0 +1,4 @@
+id,name,email,password,studentGroupId
+S1,John,john@example.com,1234,SG1
+S2,Alice,alice@example.com,abcd,SG1
+S3,Bob,bob@example.com,pass,SG1

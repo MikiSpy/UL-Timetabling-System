@@ -7,7 +7,7 @@ public class Room {
     private String type, number;
     private int capacity;
 
-    Room(String type, String number, int capacity) {
+    public Room(String type, String number, int capacity) {
         this.type = type;
         this.number = number;
         this.capacity = capacity;
