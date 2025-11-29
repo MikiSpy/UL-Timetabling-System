@@ -1,6 +1,6 @@
-day,startTime,endTime,semester,weeks,roomNumber,roomType,roomCapacity,lecturerId,studentGroupId,subgroupId,moduleCode,moduleTitle,lectureHours,labHours,tutorialHours,type,programmeCode
-Monday,09:00,10:00,1,1-12,R101,LECTURE,60,L1,SG1,,CS101,Intro to Programming,3,2,1,LECTURE,CS
-Tuesday,10:00,11:00,1,1-12,R102,TUTORIAL,50,L2,SG1,SG1-T1,MA101,Calculus I,3,0,2,TUTORIAL,CS
-Wednesday,11:00,12:00,2,1-12,LAB1,LAB,30,L1,SG1,SG1-L1,CS102,Object-Oriented Programming,3,2,1,LAB,CS
-Thursday,13:00,14:00,2,1-12,R103,LECTURE,60,L3,SG2,,PH101,Physics I,3,0,1,LECTURE,PH
-Friday,14:00,15:00,1,1-12,R104,LAB,25,L4,SG2,SG2-L1,CH101,Chemistry I,2,2,0,LAB,CH
+Day,StartTime,EndTime,Semester,Weeks,RoomNumber,RoomType,RoomCapacity,LecturerID,StudentGroupId,SubgroupId,ModuleCode,ModuleTitle,LectureHours,LabHours,TutorialHours,Type,ProgrammeCode
+Monday,09:00,10:00,1,1-12,B1023,LECTURE,232,L1,SG1,,CS4012,Representation and Modelling,2,2,1,LECTURE,COMPSCI
+Tuesday,10:00,11:00,1,1-12,CSG027,TUTORIAL,35,L5,SG1,SG1-T1,MA4111,Discrete Mathematics,2,0,1,TUTORIAL,COMPSCI
+Wednesday,11:00,12:00,2,1-12,CS2044,LAB,40,L7,SG1,SG1-L1,ET4162,Computing System Organisation,2,2,1,LAB,COMPSCI
+Thursday,13:00,14:00,2,1-12,FG042,LECTURE,236,L8,SG2,,MA4402,Computer Maths,2,0,1,LECTURE,COMPSCI
+Friday,14:00,15:00,1,1-12,CS3005B,LAB,30,L4,SG2,SG2-L1,ET4011,Fundamentals of Computer Organisation,2,2,1,LAB,COMPSCI

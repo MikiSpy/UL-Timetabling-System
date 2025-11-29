@@ -1,8 +1,8 @@
 Name,Years,Code
-Computer Science Common Entry,1,LM121,
-Bachelor of Science in Computer Systems,3,LM051,
-Bachelor of Science in Cyber Security and IT Forensics,3,LM049,
-Bachelor of Science in Computer Games Development,3,LM110,
+COMPSCI,1,LM121,
+COMPSYS,3,LM051,
+CYBESEC,3,LM049,
+COMPGAM,3,LM110,
 
 
 
