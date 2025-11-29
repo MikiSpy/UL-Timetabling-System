@@ -32,4 +32,6 @@ public class Room {
     public String getType() {
         return type;
     }
+
+    public void setNumber(String number) {}
 }

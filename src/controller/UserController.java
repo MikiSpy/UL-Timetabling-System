@@ -41,22 +41,27 @@ public class UserController {
 
         for (int i = 1; i < rows.length; i++) { // skip header
             String[] row = rows[i];
+
+            if (row.length < 4) {
+                // skip blank or malformed rows
+                continue;
+            }
+
             String id = row[0];
             String name = row[1];
             String email = row[2];
             String storedPassword = row[3];
 
-            // For students, read studentGroupId
             String studentGroupId = null;
             if ("STUDENT".equalsIgnoreCase(role) && row.length > 4) {
                 studentGroupId = row[4];
             }
 
-            // Check using ID and password
             if (id.equals(idInput) && storedPassword.equals(password)) {
                 return createUser(id, name, email, storedPassword, role, studentGroupId);
             }
         }
+
         return null;
     }
 

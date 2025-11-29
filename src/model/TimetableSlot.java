@@ -36,10 +36,6 @@ public class TimetableSlot {
         this.type = type;
     }
 
-    public TimetableSlot() {
-
-    }
-
     public String getDay() { return day; }
     public LocalTime getStartTime() { return startTime; }
     public LocalTime getEndTime() { return endTime; }
@@ -49,6 +45,26 @@ public class TimetableSlot {
     public SessionType getType() { return type; }
     public int getSemester() { return semester; }
     public String getWeeks() { return weeks; }
+    public Subgroup getSubgroup() { return subgroup; }
+    public String getSubgroupId() {
+        return subgroup != null ? subgroup.getId() : null;
+    }
+
+
+
+    public void setDay(String day) { this.day = day; }
+    public void setStartTime(LocalTime startTime) { this.startTime = startTime; }
+    public void setEndTime(LocalTime endTime) { this.endTime = endTime; }
+    public void setSemester(int semester) { this.semester = semester; }
+    public void setWeeks(String weeks) { this.weeks = weeks; }
+    public void setRoom(Room room) { this.room = room; }
+    public void setLecturer(Lecturer lecturer) { this.lecturer = lecturer; }
+    public void setModule(Module module) { this.module = module; }
+    public void setType(SessionType type) { this.type = type; }
+    public void setStudentGroupId(String studentGroupId) { this.studentGroupId = studentGroupId; }
+    public void setSubgroup(Subgroup subgroup) { this.subgroup = subgroup; }
+
+
 
     public boolean conflictsWith(TimetableSlot other) {
         if (!day.equalsIgnoreCase(other.day)) return false;

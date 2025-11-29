@@ -103,7 +103,7 @@ public class ConsoleUI {
             return;
         }
         System.out.println("\nSuccessfully logged in as admin!");
-        AdminMenu.showMenu(adminController, (Admin) admin);
+        AdminMenu.showMenu(adminController, (Admin) admin, timetableController);
     }
 
     private static int getIntInput() {

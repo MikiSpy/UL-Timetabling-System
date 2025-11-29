@@ -26,7 +26,7 @@ public class LecturerMenu {
                 case 2: // View by Programme
                     System.out.print("Enter the programme code: ");
                     String programmeCode = scanner.nextLine().trim();
-                    Timetable programmeTimetable = timetableController.getTimetableByProgramme(programmeCode);
+                    Timetable programmeTimetable = timetableController.getTimetableByProgrammeCode(programmeCode);
                     viewTimetable(programmeTimetable);
                     break;
                 case 3: // View by Module

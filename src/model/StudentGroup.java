@@ -26,6 +26,8 @@ public class StudentGroup {
         return id;
     }
 
+
+
     /**
      * Returns the subgroups belonging to this group.
      * @return array of subgroups

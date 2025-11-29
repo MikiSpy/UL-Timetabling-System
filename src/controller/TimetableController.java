@@ -76,20 +76,23 @@ public class TimetableController {
         return lecturerTimetable;
     }
 
-    public Timetable getTimetableByProgramme(String programmeName) {
+    public Timetable getTimetableByProgrammeCode(String programmeCode) {
         Timetable allSlots = repo.findAll();
         Timetable filtered = new Timetable();
 
         for (TimetableSlot slot : allSlots.getSlots()) {
             if (slot == null || slot.getModule() == null) continue;
 
+            // Compare programme code (3rd column in CSV)
             if (slot.getModule().getProgrammeCode() != null &&
-                    slot.getModule().getProgrammeCode().equalsIgnoreCase(programmeName)) {
+                    slot.getModule().getProgrammeCode().equalsIgnoreCase(programmeCode)) {
                 filtered.addSlot(slot);
             }
         }
         return filtered;
     }
+
+
 
     public Timetable getTimetableByModule(String moduleCode) {
         Timetable allSlots = repo.findAll();
@@ -104,6 +107,54 @@ public class TimetableController {
         }
         return filtered;
     }
+
+    public boolean updateSlotField(TimetableSlot slot, int fieldChoice, String newValue) {
+        try {
+            switch (fieldChoice) {
+
+                case 1: // Day
+                    slot.setDay(newValue);
+                    break;
+
+                case 2: // Start Time
+                    slot.setStartTime(java.time.LocalTime.parse(newValue));
+                    break;
+
+                case 3: // End Time
+                    slot.setEndTime(java.time.LocalTime.parse(newValue));
+                    break;
+
+                case 4: // Room
+                    slot.getRoom().setNumber(newValue);
+                    break;
+
+                case 5: // Lecturer
+                    slot.getLecturer().setId(newValue);
+                    break;
+
+                case 6: // Student Group
+                    slot.setStudentGroupId(newValue);
+                    break;
+
+                case 7: // Type
+                    slot.setType(SessionType.valueOf(newValue.toUpperCase()));
+                    break;
+
+                default:
+                    System.out.println("Unknown field choice.");
+                    return false;
+            }
+
+            // REWRITE THE CSV
+            return repo.overwriteAllSlots(repo.findAll());
+
+        } catch (Exception e) {
+            System.out.println("Error updating slot: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 
     private Timetable getTimetableForAdmin(Admin admin) {
         return new Timetable();

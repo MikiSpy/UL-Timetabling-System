@@ -6,6 +6,7 @@ package model;
 public class Subgroup {
     private String id;
     private StudentGroup parentGroup;
+    
 
     /**
      * Constructs a Subgroup with an ID and its parent StudentGroup.
@@ -24,7 +25,6 @@ public class Subgroup {
     public String getId() {
         return id;
     }
-
     /**
      * Returns the parent StudentGroup.
      * @return parent group

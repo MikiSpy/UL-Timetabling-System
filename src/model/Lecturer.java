@@ -21,7 +21,7 @@ public class Lecturer extends User {
     public void setModules(Module[] modules) {
         this.modules = modules;
     }
-
+    public void setId(String id) {}
     public String getId() {
         return id;
     }

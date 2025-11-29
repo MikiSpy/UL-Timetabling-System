@@ -116,4 +116,50 @@ public class CSVTimetableRepository implements TimetableRepository {
         }
     }
 
+    public boolean overwriteAllSlots(Timetable timetable) {
+        try {
+            TimetableSlot[] slots = timetable.getSlots().toArray(new TimetableSlot[0]);
+            String[][] data = new String[slots.length + 1][];
+
+            // optional: add header as first row
+            data[0] = new String[]{
+                    "Day", "StartTime", "EndTime", "Semester", "Weeks",
+                    "RoomNumber", "RoomType", "RoomCapacity",
+                    "LecturerId", "StudentGroupId", "SubgroupId",
+                    "ModuleCode", "ModuleTitle", "LectureHours", "LabHours", "TutorialHours",
+                    "SessionType", "ProgrammeCode"
+            };
+
+            for (int i = 0; i < slots.length; i++) {
+                TimetableSlot slot = slots[i];
+                data[i + 1] = new String[]{
+                        slot.getDay(),
+                        slot.getStartTime().toString(),
+                        slot.getEndTime().toString(),
+                        String.valueOf(slot.getSemester()),
+                        slot.getWeeks(),
+                        slot.getRoom().getNumber(),
+                        slot.getRoom().getType(),
+                        String.valueOf(slot.getRoom().getCapacity()),
+                        slot.getLecturer().getId(),
+                        slot.getStudentGroupId(),
+                        slot.getSubgroup() != null ? slot.getSubgroup().getId() : "",
+                        slot.getModule().getCode(),
+                        slot.getModule().getTitle(),
+                        String.valueOf(slot.getModule().getLectureHours()),
+                        String.valueOf(slot.getModule().getLabHours()),
+                        String.valueOf(slot.getModule().getTutorialHours()),
+                        slot.getType().name(),
+                        slot.getModule().getProgrammeCode() != null ? slot.getModule().getProgrammeCode() : ""
+                };
+            }
+
+            csvUtil.writeCSV(sessionsFile, data);
+            return true;
+        } catch (Exception e) {
+            System.err.println("Error overwriting timetable CSV: " + e.getMessage());
+            return false;
+        }
+    }
+
 }
