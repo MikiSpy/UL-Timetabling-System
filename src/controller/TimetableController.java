@@ -1,5 +1,6 @@
 package controller;
 import model.*;
+import model.Module;
 import repository.*;
 
 /**
@@ -158,5 +159,24 @@ public class TimetableController {
 
     private Timetable getTimetableForAdmin(Admin admin) {
         return new Timetable();
+    }
+
+    public boolean deleteSlot(TimetableSlot slot){
+        return repo.deleteSlot(slot);
+    }
+
+    public boolean addTimetableSlot(TimetableSlot slot){
+        return repo.saveSlot(slot);
+    }
+
+    public Module getModule(String moduleCode){
+        Timetable allSlots = repo.findAll();
+
+        for(TimetableSlot slot : allSlots.getSlots()){
+            if(slot.getModule().getCode().equalsIgnoreCase(moduleCode)){
+                return slot.getModule();
+            }
+        }
+        return null;
     }
 }

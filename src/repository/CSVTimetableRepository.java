@@ -4,6 +4,8 @@ import model.*;
 import util.CSVUtil;
 import java.util.Arrays;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CSVTimetableRepository implements TimetableRepository {
     private final String sessionsFile;
@@ -63,6 +65,42 @@ public class CSVTimetableRepository implements TimetableRepository {
             return false;
         }
     }
+
+    @Override
+    public boolean deleteSlot(TimetableSlot slot) {
+        try {
+            String[][] rows = csvUtil.readCSV(sessionsFile);
+
+            List<String[]> updated = new ArrayList<>();
+            boolean found = false;
+
+            for (String[] row : rows) {
+                boolean same =
+                        row[0].equals(slot.getDay()) &&
+                                row[1].equals(slot.getStartTime().toString()) &&
+                                row[2].equals(slot.getEndTime().toString());
+
+                if (!same) {
+                    updated.add(row);
+                } else {
+                    found = true;
+                }
+            }
+
+            if (!found) {
+                System.err.println("Slot not found, nothing deleted.");
+                return false;
+            }
+
+            csvUtil.writeCSV(sessionsFile, updated.toArray(new String[0][]));
+            return true;
+
+        } catch (Exception e) {
+            System.err.println("Error deleting timetable slot: " + e.getMessage());
+            return false;
+        }
+    }
+
 
     private TimetableSlot buildSlotFromRow(String[] row) {
         try {

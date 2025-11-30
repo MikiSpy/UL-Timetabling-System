@@ -8,4 +8,5 @@ public interface TimetableRepository {
     Timetable findAll();
     boolean saveSlot(TimetableSlot slot);
     boolean overwriteAllSlots(Timetable timetable);
+    boolean deleteSlot(TimetableSlot slot);
 }

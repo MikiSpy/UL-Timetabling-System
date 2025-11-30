@@ -27,4 +27,5 @@ public class Timetable {
     public ArrayList<TimetableSlot> getSlots() {
         return slots;
     }
+
 }

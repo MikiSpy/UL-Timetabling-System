@@ -6,6 +6,10 @@ package model;
 public class Subgroup {
     private String id;
     private StudentGroup parentGroup;
+
+    public Subgroup(String id) {
+        this.id = id;
+    }
     
 
     /**

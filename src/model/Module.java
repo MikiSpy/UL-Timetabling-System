@@ -18,6 +18,10 @@ public class Module {
         this.weeks = weeks;
         this.programmeCode = programmeCode;
     }
+
+    public Module(String code){
+        this.code = code;
+    }
     /**
      * Returns the module code.
      * @return module code
