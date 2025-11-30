@@ -35,4 +35,8 @@ public class StudentGroup {
     public Subgroup[] getSubgroups() {
         return subgroups;
     }
+
+    public void setId(String newValue) {
+        this.id = newValue;
+    }
 }

@@ -115,7 +115,7 @@ public class CSVTimetableRepository implements TimetableRepository {
             String roomNumber = row[5];
             String roomType = row[6];
             int roomCapacity = Integer.parseInt(row[7]);
-            Room room = new Room(roomType, roomNumber, roomCapacity);
+            Room room = new Room(roomNumber, roomType, roomCapacity);
 
             // Lecturer (minimal info for now)
             String lecturerId = row[8];
@@ -199,5 +199,40 @@ public class CSVTimetableRepository implements TimetableRepository {
             return false;
         }
     }
+
+    @Override
+    public boolean updateSlot(TimetableSlot slot, int fieldChoice, String newValue) {
+        try {
+            Timetable timetable = findAll();
+            boolean updated = false;
+
+            for (TimetableSlot s : timetable.getSlots()) {
+                if (s.equals(slot)) {
+                    switch (fieldChoice) {
+                        case 1 -> s.setDay(newValue);
+                        case 2 -> s.setStartTime(LocalTime.parse(newValue));
+                        case 3 -> s.setEndTime(LocalTime.parse(newValue));
+                        case 4 -> s.getRoom().setNumber(newValue);
+                        case 5 -> s.getLecturer().setId(newValue);
+                        case 6 -> s.getStudentGroup().setId(newValue);
+                        case 7 -> s.setType(SessionType.valueOf(newValue.toUpperCase()));
+                        default -> { return false; }
+                    }
+                    updated = true;
+                    break;
+                }
+            }
+
+            if (updated) {
+                overwriteAllSlots(timetable);
+            }
+            return updated;
+        } catch (Exception e) {
+            System.err.println("Error updating slot: " + e.getMessage());
+            return false;
+        }
+    }
+
+
 
 }

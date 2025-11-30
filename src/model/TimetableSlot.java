@@ -14,7 +14,7 @@ public class TimetableSlot {
     private String weeks;
     private Room room;
     private Lecturer lecturer;
-    private String studentGroupId; // store the ID directly
+    private String studentGroupId;
     private Subgroup subgroup;
     private Module module;
     private SessionType type;

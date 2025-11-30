@@ -10,7 +10,7 @@ public class Lecturer extends User {
     private String id;
     private String email;
 
-    public Lecturer(String name, String password, String id, String email) {
+    public Lecturer(String id, String name, String email, String password) {
         super(name, password);
         this.name = name;
         this.modules = new Module[0];

@@ -2,8 +2,8 @@ package view;
 
 import controller.*;
 import model.*;
-import model.Module;
-import repository.CSVTimetableRepository;
+import repository.RoomRepository;
+
 import java.time.LocalTime;
 import java.util.Scanner;
 
@@ -13,51 +13,50 @@ public class AdminMenu {
 
     public static void showMenu(AdminController adminController, Admin admin, TimetableController timetableController) {
         while (true) {
-            System.out.println("\n=== ADMIN TIMETABLE MENU ===");
+            System.out.println("\n=== ADMIN MENU ===");
             System.out.println("1. View Programme Schedule");
             System.out.println("2. View Module Schedule");
             System.out.println("3. Edit a Timetable Slot");
             System.out.println("4. Delete a Timetable Slot");
-            System.out.println("5. Add a Timetable Slot");
+            System.out.println("5. Create a Timetable Slot");
+            System.out.println("6. Create Module");
+            System.out.println("7. Delete Module");
+            System.out.println("8. Create Room");
+            System.out.println("9. Delete Room");
+            System.out.println("10. Create Student Group");
+            System.out.println("11. Delete Student Group");
             System.out.println("0. Logout");
             System.out.print("Select an option: ");
 
             int choice = getIntInput();
 
             switch (choice) {
-
-                case 1:
+                case 1 -> {
                     System.out.print("Enter the programme code: ");
                     String programmeCode = scanner.nextLine().trim();
                     Timetable programmeTimetable = timetableController.getTimetableByProgrammeCode(programmeCode);
                     viewTimetable(programmeTimetable);
-                    break;
-
-                case 2:
+                }
+                case 2 -> {
                     System.out.print("Enter module code: ");
                     String moduleCode = scanner.nextLine().trim();
                     Timetable moduleTimetable = timetableController.getTimetableByModule(moduleCode);
                     viewTimetable(moduleTimetable);
-                    break;
-
-                case 3:
-                    editTimetableSlot(timetableController);
-                    break;
-
-                case 4:
-                    deleteTimetableSlot(timetableController);
-                    break;
-
-                case 5:
-                    createTimetableSlot(timetableController);
-                    break;
-
-                case 0:
+                }
+                case 3 -> editTimetableSlot(timetableController);
+                case 4 -> deleteTimetableSlot(timetableController);
+                case 5 -> createTimetableSlot(adminController, timetableController);
+                case 6 -> createModule(adminController);
+                case 7 -> deleteModule(adminController);
+                case 8 -> createRoom(adminController);
+                case 9 -> deleteRoom(adminController);
+                case 10 -> createStudentGroup(adminController);
+                case 11 -> deleteStudentGroup(adminController);
+                case 0 -> {
                     System.out.println("Logging out...");
                     return;
-
-                default:
-                    System.out.println("Invalid option.");
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
     }
@@ -171,7 +170,7 @@ public class AdminMenu {
         }
     }
 
-    private static void createTimetableSlot(TimetableController timetableController) {
+    private static void createTimetableSlot(AdminController adminController, TimetableController timetableController) {
 
         System.out.print("Enter module code: ");
         String moduleCode = scanner.nextLine().trim();
@@ -181,6 +180,8 @@ public class AdminMenu {
             System.out.println("Invalid module code.");
             return;
         }
+
+        model.Module module = timetableController.getModule(moduleCode);
 
         System.out.println("\n--- Create Timetable Slot ---");
 
@@ -199,20 +200,11 @@ public class AdminMenu {
         System.out.print("Weeks: ");
         String weeks = scanner.nextLine().trim();
 
-
         System.out.print("Room Number: ");
         String roomNumber = scanner.nextLine().trim();
 
-        System.out.print("Room Type: ");
-        String roomType = scanner.nextLine().trim();
-
-        System.out.print("Room Capacity: ");
-        int roomCap = getIntInput();
-        Room room = new Room(roomType, roomNumber, roomCap);
-
         System.out.print("Lecturer ID: ");
         String lecturerId = scanner.nextLine().trim();
-        Lecturer lecturer = new Lecturer("TBD", "tbd", lecturerId, "tbd@ul.ie");
 
         System.out.print("Student Group ID: ");
         String studentGroupId = scanner.nextLine().trim();
@@ -221,18 +213,13 @@ public class AdminMenu {
         String subId = scanner.nextLine().trim();
         Subgroup subgroup = new Subgroup(subId);
 
-        Module module = timetableController.getModule(moduleCode);
 
         System.out.print("Session Type (LECTURE/LAB/TUTORIAL): ");
         SessionType type = SessionType.valueOf(scanner.nextLine().trim().toUpperCase());
 
-        TimetableSlot slot = new TimetableSlot(day, start, end, semester, weeks, room, lecturer,
-                studentGroupId, subgroup, module, type);
+        boolean ok = adminController.createTimetableSlot(day,start, end, semester, weeks, roomNumber, lecturerId, new StudentGroup(studentGroupId), subgroup, module, type);
 
-        boolean ok = timetableController.addTimetableSlot(slot);
-
-        if (ok) System.out.println("Slot added successfully!");
-        else System.out.println("Error adding slot.");
+        System.out.println(ok ? "Timetable slot created successfully!" : "Error creating timetable slot.");
     }
 
 
@@ -249,4 +236,89 @@ public class AdminMenu {
             }
         }
     }
+
+    // ---------------- MODULE MANAGEMENT ----------------
+// ---------------- MODULE MANAGEMENT ----------------
+    private static void createModule(AdminController adminController) {
+        System.out.print("Module Code: ");
+        String code = scanner.nextLine().trim();
+
+        System.out.print("Module Title: ");
+        String title = scanner.nextLine().trim();
+
+        System.out.print("Lecture Hours: ");
+        int lectureHours = getIntInput();
+
+        System.out.print("Lab Hours: ");
+        int labHours = getIntInput();
+
+        System.out.print("Tutorial Hours: ");
+        int tutorialHours = getIntInput();
+
+        System.out.print("Year (e.g. 1, 2, 3, 4): ");
+        int year = getIntInput();
+
+        System.out.print("Semester (e.g. 1 or 2): ");
+        int semester = getIntInput();
+
+        System.out.print("Weeks (e.g. 1-12): ");
+        String weeks = scanner.nextLine().trim();
+
+        System.out.print("Programme Code: ");
+        String programmeCode = scanner.nextLine().trim();
+
+        boolean ok = adminController.createModule(
+                code, title, lectureHours, labHours, tutorialHours,
+                year, semester, weeks, programmeCode
+        );
+
+        System.out.println(ok ? "Module created successfully!" : "Error creating module.");
+    }
+
+
+    private static void deleteModule(AdminController adminController) {
+        System.out.print("Enter Module Code to delete: ");
+        String code = scanner.nextLine().trim();
+        boolean ok = adminController.deleteModule(code);
+        System.out.println(ok ? "Module deleted successfully!" : "Error deleting module.");
+    }
+
+    // ---------------- ROOM MANAGEMENT ----------------
+    private static void createRoom(AdminController adminController) {
+        System.out.print("Room Number: ");
+        String number = scanner.nextLine().trim();
+        System.out.print("Room Type: ");
+        String type = scanner.nextLine().trim();
+        System.out.print("Capacity: ");
+        int capacity = getIntInput();
+
+        boolean ok = adminController.createRoom(number, type, capacity);
+        System.out.println(ok ? "Room created successfully!" : "Error creating room.");
+    }
+
+    private static void deleteRoom(AdminController adminController) {
+        System.out.print("Enter Room Number to delete: ");
+        String number = scanner.nextLine().trim();
+        boolean ok = adminController.deleteRoom(number);
+        System.out.println(ok ? "Room deleted successfully!" : "Error deleting room.");
+    }
+
+    // ---------------- STUDENT GROUP MANAGEMENT ----------------
+    private static void createStudentGroup(AdminController adminController) {
+        System.out.print("Group ID: ");
+        String id = scanner.nextLine().trim();
+        System.out.print("Group Size: ");
+        int size = getIntInput();
+
+        boolean ok = adminController.createStudentGroup(id, size);
+        System.out.println(ok ? "Student group created successfully!" : "Error creating student group.");
+    }
+
+    private static void deleteStudentGroup(AdminController adminController) {
+        System.out.print("Enter Group ID to delete: ");
+        String id = scanner.nextLine().trim();
+        boolean ok = adminController.deleteStudentGroup(id);
+        System.out.println(ok ? "Student group deleted successfully!" : "Error deleting student group.");
+    }
+
 }

@@ -9,4 +9,5 @@ public interface TimetableRepository {
     boolean saveSlot(TimetableSlot slot);
     boolean overwriteAllSlots(Timetable timetable);
     boolean deleteSlot(TimetableSlot slot);
+    boolean updateSlot(TimetableSlot slot, int fieldChoice, String newValue);
 }

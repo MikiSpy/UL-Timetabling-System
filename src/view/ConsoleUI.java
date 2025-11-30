@@ -3,9 +3,7 @@ package view;
 import java.util.Scanner;
 import controller.*;
 import model.*;
-import repository.CSVTimetableRepository;
-import repository.TimetableRepository;
-import view.*;
+import repository.*;
 
 /**
  * Provides a text-based interface for the system.
@@ -14,9 +12,13 @@ public class ConsoleUI {
 
     private static final UserController userController = new UserController();
 
-    private static TimetableRepository repo = new CSVTimetableRepository("data/sessionTimetable.csv");
-    private static TimetableController timetableController = new TimetableController(repo);
-    private static final AdminController adminController = new AdminController(repo);
+    private static TimetableRepository timetableRepository = new CSVTimetableRepository("data/sessionTimetable.csv");
+    private static TimetableController timetableController = new TimetableController(timetableRepository);
+    private static ModuleRepository moduleRepository = new CSVModuleRepository("data/modules.csv");
+    private static RoomRepository roomRepository = new CSVRoomRepository("data/rooms.csv");
+    private static StudentGroupRepository studentGroupRepository = new CSVStudentGroupRepository("data/studentGroups.csv");
+    private static LecturerRepository lecturerRepository = new CSVLecturerRepository("data/lecturers.csv");
+    private static final AdminController adminController = new AdminController(timetableRepository, moduleRepository, roomRepository, studentGroupRepository, lecturerRepository);
 
     private static final Scanner scanner = new Scanner(System.in);
 
