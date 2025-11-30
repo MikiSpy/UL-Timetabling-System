@@ -57,7 +57,7 @@ public class Student extends User {
     }
     @Override
     public String getPassword(){
-        return id;
+        return password;
     }
     @Override
     public boolean hasAdminAccess() {

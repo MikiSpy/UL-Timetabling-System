@@ -72,7 +72,7 @@ public class UserController {
             case "ADMIN":
                 return new Admin(name, password);
             case "LECTURER":
-                return new Lecturer(name, password, id, email);
+                return new Lecturer(id, name, email, password);
             case "STUDENT":
                 // assign studentGroupId here
                 return new Student(name, password, id, null, 1, studentGroupId);

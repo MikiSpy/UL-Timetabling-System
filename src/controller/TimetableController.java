@@ -34,15 +34,12 @@ public class TimetableController {
         String studentGroupId = student.getStudentGroupId();
         System.out.println("Student group ID: " + studentGroupId);
 
+
         for (TimetableSlot slot : allSlots.getSlots()) {
-            if (slot == null) continue; // skip null slots
+            if (slot == null) continue;
 
-            // get the slot's student group ID directly
-            String slotGroupId = slot.getStudentGroupId(); // <--- use this
-            System.out.println("Slot group ID: " + slotGroupId);
-
-            // compare IDs
-            if (studentGroupId != null && studentGroupId.equals(slotGroupId)) {
+            // Only add slots that match the student's group
+            if (studentGroupId != null && studentGroupId.equals(slot.getStudentGroupId())) {
                 studentTimetable.addSlot(slot);
             }
         }
