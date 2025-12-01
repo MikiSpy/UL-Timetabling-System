@@ -12,14 +12,12 @@ public class AdminController {
     private final TimetableRepository timetableRepo;
     private final ModuleRepository moduleRepo;
     private final RoomRepository roomRepo;
-    private final StudentGroupRepository groupRepo;
     private final LecturerRepository lecturerRepo;
 
-    public AdminController(TimetableRepository timetableRepo, ModuleRepository moduleRepo, RoomRepository roomRepo, StudentGroupRepository groupRepo, LecturerRepository lecturerRepo) {
+    public AdminController(TimetableRepository timetableRepo, ModuleRepository moduleRepo, RoomRepository roomRepo, LecturerRepository lecturerRepo) {
         this.timetableRepo = timetableRepo;
         this.moduleRepo = moduleRepo;
         this.roomRepo = roomRepo;
-        this.groupRepo = groupRepo;
         this.lecturerRepo = lecturerRepo;
     }
     /**
@@ -74,13 +72,8 @@ public class AdminController {
         return roomRepo.delete(number);
     }
 
-    public boolean createStudentGroup(String id, int size) {
-        StudentGroup group = new StudentGroup(id);
-        return groupRepo.save(group);
-    }
-
-    public boolean deleteStudentGroup(String id) {
-        return groupRepo.delete(id);
+    public Module getModule(String code){
+        return moduleRepo.findByCode(code);
     }
 
 

@@ -1,5 +1,4 @@
 Day,StartTime,EndTime,Semester,Weeks,RoomNumber,RoomType,RoomCapacity,LecturerId,StudentGroupId,SubgroupId,ModuleCode,ModuleTitle,LectureHours,LabHours,TutorialHours,SessionType,ProgrammeCode
-Monday,08:00,09:00,1,1-12,B1023,LECTURE,232,L1,SG1,,CS4012,Representation and Modelling,2,2,1,LECTURE,LM121
 Monday,09:00,10:00,1,1-12,FG042,LECTURE,236,L2,SG2,,CS4141,Introduction to Programming,2,2,0,LECTURE,LM051
 Monday,10:00,11:00,1,1-12,CS2044,LAB,40,L3,SG1,SG1-L1,CS4221,Foundations of Computer Science 1,2,2,0,LAB,LM121
 Monday,11:00,12:00,1,1-12,C1062,TUTORIAL,40,L5,SG2,SG2-T1,MA4111,Discrete Mathematics,2,0,1,TUTORIAL,LM051

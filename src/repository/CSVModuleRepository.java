@@ -25,7 +25,7 @@ public class CSVModuleRepository implements ModuleRepository {
                     module.getTitle(),
                     String.valueOf(module.getLectureHours()),
                     String.valueOf(module.getLabHours()),
-                    String.valueOf(module.getTutorialHours())
+                    String.valueOf(module.getTutorialHours()),
             };
 
             // Append

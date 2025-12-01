@@ -10,6 +10,7 @@ import java.util.List;
 public class CSVTimetableRepository implements TimetableRepository {
     private final String sessionsFile;
     private final CSVUtil csvUtil = new CSVUtil();
+    private final LecturerRepository lecturerRepository = new CSVLecturerRepository("data/lecturers.csv");
 
     public CSVTimetableRepository(String sessionsFile) {
         this.sessionsFile = sessionsFile;
@@ -119,7 +120,7 @@ public class CSVTimetableRepository implements TimetableRepository {
 
             // Lecturer (minimal info for now)
             String lecturerId = row[8];
-            Lecturer lecturer = new Lecturer("TBD", "tbd", row[8], "tbd@example.com");
+            Lecturer lecturer = lecturerRepository.findById(lecturerId);
 
             // Student group ID (store ID only)
             String studentGroupId = row[9];

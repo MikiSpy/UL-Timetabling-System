@@ -23,8 +23,6 @@ public class AdminMenu {
             System.out.println("7. Delete Module");
             System.out.println("8. Create Room");
             System.out.println("9. Delete Room");
-            System.out.println("10. Create Student Group");
-            System.out.println("11. Delete Student Group");
             System.out.println("0. Logout");
             System.out.print("Select an option: ");
 
@@ -50,8 +48,6 @@ public class AdminMenu {
                 case 7 -> deleteModule(adminController);
                 case 8 -> createRoom(adminController);
                 case 9 -> deleteRoom(adminController);
-                case 10 -> createStudentGroup(adminController);
-                case 11 -> deleteStudentGroup(adminController);
                 case 0 -> {
                     System.out.println("Logging out...");
                     return;
@@ -81,7 +77,7 @@ public class AdminMenu {
                     slot.getEndTime(),
                     slot.getModule() != null ? slot.getModule().getCode() + " - " + slot.getModule().getTitle() : "TBD",
                     slot.getRoom() != null ? slot.getRoom().getNumber() : "TBD",
-                    slot.getStudentGroup() != null ? slot.getStudentGroup().getId() : "TBD",
+                    slot.getStudentGroupId(),
                     slot.getLecturer() != null ? slot.getLecturer().getName() : "TBD",
                     slot.getType() != null ? slot.getType() : "TBD"
             );
@@ -175,13 +171,17 @@ public class AdminMenu {
         System.out.print("Enter module code: ");
         String moduleCode = scanner.nextLine().trim();
 
-        Timetable timetable = timetableController.getTimetableByModule(moduleCode);
-        if (timetable == null) {
-            System.out.println("Invalid module code.");
-            return;
-        }
+        model.Module module = adminController.getModule(moduleCode);
 
-        model.Module module = timetableController.getModule(moduleCode);
+        if (module == null) {
+            System.out.println("Module not found. Please create it first.");
+            createModule(adminController);
+            module = adminController.getModule(moduleCode);
+            if (module == null) {
+                System.out.println("Error: Module still not found, cannot create slot.");
+                return;
+            }
+        }
 
         System.out.println("\n--- Create Timetable Slot ---");
 
@@ -301,24 +301,6 @@ public class AdminMenu {
         String number = scanner.nextLine().trim();
         boolean ok = adminController.deleteRoom(number);
         System.out.println(ok ? "Room deleted successfully!" : "Error deleting room.");
-    }
-
-    // ---------------- STUDENT GROUP MANAGEMENT ----------------
-    private static void createStudentGroup(AdminController adminController) {
-        System.out.print("Group ID: ");
-        String id = scanner.nextLine().trim();
-        System.out.print("Group Size: ");
-        int size = getIntInput();
-
-        boolean ok = adminController.createStudentGroup(id, size);
-        System.out.println(ok ? "Student group created successfully!" : "Error creating student group.");
-    }
-
-    private static void deleteStudentGroup(AdminController adminController) {
-        System.out.print("Enter Group ID to delete: ");
-        String id = scanner.nextLine().trim();
-        boolean ok = adminController.deleteStudentGroup(id);
-        System.out.println(ok ? "Student group deleted successfully!" : "Error deleting student group.");
     }
 
 }

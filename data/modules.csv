@@ -1,5 +1,4 @@
 Code,Title,LectureHours,LabHours,TutorialHours,LecturerIds
-CS4012,Representation and Modelling,2,2,1,L1
 CS4141,Introduction to Programming,2,2,0,L2
 CS4221,Foundations of Computer Science 1,2,2,0,L3
 ET4011,Fundamentals of Computer Organisation,2,2,1,L4
@@ -76,3 +75,4 @@ CS4067,Writing Games Analysis,2,1,1,L6
 
 
 
+CS111,hello,2,2,2

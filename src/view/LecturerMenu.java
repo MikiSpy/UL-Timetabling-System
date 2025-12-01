@@ -61,7 +61,7 @@ public class LecturerMenu {
                     slot.getEndTime(),
                     slot.getModule() != null ? slot.getModule().getTitle() : "TBD",
                     slot.getRoom() != null ? slot.getRoom().getNumber() : "TBD",
-                    slot.getStudentGroup() != null ? slot.getStudentGroup().getId() : "TBD",
+                    slot.getStudentGroupId(),
                     slot.getType() != null ? slot.getType() : "TBD"
             );
         }
@@ -82,7 +82,7 @@ public class LecturerMenu {
                     slot.getEndTime(),
                     slot.getModule() != null ? slot.getModule().getTitle() : "TBD",
                     slot.getRoom() != null ? slot.getRoom().getNumber() : "TBD",
-                    slot.getStudentGroup() != null ? slot.getStudentGroup().getId() : "TBD",
+                    slot.getStudentGroupId(),
                     slot.getType() != null ? slot.getType() : "TBD"
             );
         }

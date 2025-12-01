@@ -16,9 +16,8 @@ public class ConsoleUI {
     private static TimetableController timetableController = new TimetableController(timetableRepository);
     private static ModuleRepository moduleRepository = new CSVModuleRepository("data/modules.csv");
     private static RoomRepository roomRepository = new CSVRoomRepository("data/rooms.csv");
-    private static StudentGroupRepository studentGroupRepository = new CSVStudentGroupRepository("data/studentGroups.csv");
     private static LecturerRepository lecturerRepository = new CSVLecturerRepository("data/lecturers.csv");
-    private static final AdminController adminController = new AdminController(timetableRepository, moduleRepository, roomRepository, studentGroupRepository, lecturerRepository);
+    private static final AdminController adminController = new AdminController(timetableRepository, moduleRepository, roomRepository, lecturerRepository);
 
     private static final Scanner scanner = new Scanner(System.in);
 

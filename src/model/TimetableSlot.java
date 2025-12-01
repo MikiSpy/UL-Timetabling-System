@@ -3,6 +3,7 @@ package model;
 import util.WeeksPattern;
 import java.time.LocalTime;
 
+
 /**
  * Represents a single scheduled session (lecture, lab, or tutorial).
  */
