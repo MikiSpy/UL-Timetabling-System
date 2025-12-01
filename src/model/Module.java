@@ -7,7 +7,20 @@ public class Module {
     private String code, title, weeks, programmeCode;
     private int lectureHours, labHours, tutorialHours, year, semester;
 
-    public Module(String code, String title, int lectureHours, int labHours, int tutorialHours, int year, int semester, String weeks, String programmeCode) {
+    /**
+     * Create a module with full details.
+     * @param code module code
+     * @param title module title
+     * @param lectureHours lecture hours
+     * @param labHours lab hours
+     * @param tutorialHours tutorial hours
+     * @param year year of study
+     * @param semester semester number
+     * @param weeks weeks pattern
+     * @param programmeCode programme code
+     */
+    public Module(String code, String title, int lectureHours, int labHours, int tutorialHours,
+                  int year, int semester, String weeks, String programmeCode) {
         this.code = code;
         this.title = title;
         this.lectureHours = lectureHours;
@@ -19,19 +32,24 @@ public class Module {
         this.programmeCode = programmeCode;
     }
 
-    public Module(String code){
+    /**
+     * Create a module with only a code.
+     * @param code module code
+     */
+    public Module(String code) {
         this.code = code;
     }
+
     /**
-     * Returns the module code.
-     * @return module code
+     * Get module code.
+     * @return code
      */
     public String getCode() {
         return code;
     }
 
     /**
-     * Returns the number of lecture hours.
+     * Get lecture hours.
      * @return lecture hours
      */
     public int getLectureHours() {
@@ -39,7 +57,7 @@ public class Module {
     }
 
     /**
-     * Returns the number of lab hours.
+     * Get lab hours.
      * @return lab hours
      */
     public int getLabHours() {
@@ -47,24 +65,34 @@ public class Module {
     }
 
     /**
-     * Returns the number of tutorial hours.
+     * Get tutorial hours.
      * @return tutorial hours
      */
     public int getTutorialHours() {
         return tutorialHours;
     }
 
+    /**
+     * Get module title.
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Get weeks pattern.
+     * @return weeks
+     */
     public String getWeeks() {
         return weeks;
     }
 
-    public String getProgrammeCode(){
+    /**
+     * Get programme code.
+     * @return programme code
+     */
+    public String getProgrammeCode() {
         return programmeCode;
     }
-
-
 }

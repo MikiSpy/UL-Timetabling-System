@@ -6,7 +6,8 @@ import model.*;
 import repository.*;
 
 /**
- * Provides a text-based interface for the system.
+ * Provides a text-based interface for the timetable system.
+ * Allows students, lecturers, and admins to log in and access their respective menus.
  */
 public class ConsoleUI {
 
@@ -17,12 +18,13 @@ public class ConsoleUI {
     private static ModuleRepository moduleRepository = new CSVModuleRepository("data/modules.csv");
     private static RoomRepository roomRepository = new CSVRoomRepository("data/rooms.csv");
     private static LecturerRepository lecturerRepository = new CSVLecturerRepository("data/lecturers.csv");
-    private static final AdminController adminController = new AdminController(timetableRepository, moduleRepository, roomRepository, lecturerRepository);
+    private static final AdminController adminController =
+            new AdminController(timetableRepository, moduleRepository, roomRepository, lecturerRepository);
 
     private static final Scanner scanner = new Scanner(System.in);
 
     /**
-     * Starts the text-based interface.
+     * Displays the main system menu and handles user input for login options.
      */
     public static void showMenu() {
         while (true) {
@@ -36,24 +38,21 @@ public class ConsoleUI {
             int choice = getIntInput();
 
             switch (choice) {
-                case 1:
-                    studentLogin();
-                    break;
-                case 2:
-                    lecturerLogin();
-                    break;
-                case 3:
-                    adminLogin();
-                    break;
-                case 0:
+                case 1 -> studentLogin();
+                case 2 -> lecturerLogin();
+                case 3 -> adminLogin();
+                case 0 -> {
                     System.out.println("Exiting...");
                     return;
-                default:
-                    System.out.println("Invalid option.");
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
     }
 
+    /**
+     * Handles student login and opens the student menu if successful.
+     */
     private static void studentLogin() {
         System.out.println("\nEnter Student ID: ");
         String id = scanner.nextLine();
@@ -72,6 +71,9 @@ public class ConsoleUI {
         StudentMenu.showMenu(userController, (Student) user, timetableController);
     }
 
+    /**
+     * Handles lecturer login and opens the lecturer menu if successful.
+     */
     private static void lecturerLogin() {
         System.out.println("\nEnter Lecturer ID: ");
         String id = scanner.nextLine();
@@ -90,6 +92,9 @@ public class ConsoleUI {
         LecturerMenu.showMenu(userController, (Lecturer) lecturer, timetableController);
     }
 
+    /**
+     * Handles admin login and opens the admin menu if successful.
+     */
     private static void adminLogin() {
         System.out.println("\nEnter Admin ID: ");
         String id = scanner.nextLine();
@@ -107,6 +112,11 @@ public class ConsoleUI {
         AdminMenu.showMenu(adminController, (Admin) admin, timetableController);
     }
 
+    /**
+     * Safely reads an integer input from the user.
+     *
+     * @return the integer entered by the user
+     */
     private static int getIntInput() {
         while (true) {
             String input = scanner.nextLine().trim();

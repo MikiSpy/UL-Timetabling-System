@@ -4,10 +4,19 @@ import controller.*;
 import model.*;
 import java.util.Scanner;
 
+/**
+ * Lecturer menu for viewing timetables and schedules.
+ */
 public class LecturerMenu {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Show lecturer menu and handle input.
+     * @param userController user controller
+     * @param lecturer lecturer user
+     * @param timetableController timetable controller
+     */
     public static void showMenu(UserController userController, Lecturer lecturer, TimetableController timetableController) {
         while (true) {
             System.out.println("\n=== LECTURER TIMETABLE MENU ===");
@@ -20,30 +29,33 @@ public class LecturerMenu {
             int choice = getIntInput();
 
             switch (choice) {
-                case 1:
-                    viewTimetable(lecturer, timetableController);
-                    break;
-                case 2: // View by Programme
-                    System.out.print("Enter the programme code: ");
+                case 1 -> viewTimetable(lecturer, timetableController);
+                case 2 -> {
+                    System.out.print("Enter programme code: ");
                     String programmeCode = scanner.nextLine().trim();
                     Timetable programmeTimetable = timetableController.getTimetableByProgrammeCode(programmeCode);
                     viewTimetable(programmeTimetable);
-                    break;
-                case 3: // View by Module
+                }
+                case 3 -> {
                     System.out.print("Enter module code: ");
                     String moduleCode = scanner.nextLine().trim();
                     Timetable moduleTimetable = timetableController.getTimetableByModule(moduleCode);
                     viewTimetable(moduleTimetable);
-                    break;
-                case 0:
+                }
+                case 0 -> {
                     System.out.println("Logging out...");
                     return;
-                default:
-                    System.out.println("Invalid option.");
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
     }
 
+    /**
+     * View timetable for a lecturer.
+     * @param lecturer lecturer user
+     * @param timetableController timetable controller
+     */
     public static void viewTimetable(Lecturer lecturer, TimetableController timetableController) {
         Timetable timetable = timetableController.getTimetableForUser(lecturer);
 
@@ -53,9 +65,8 @@ public class LecturerMenu {
         }
 
         System.out.println("\n=== LECTURER TIMETABLE ===");
-
         for (TimetableSlot slot : timetable.getSlots()) {
-            System.out.printf("%s | %s - %s | Module: %s | Room: %s | Student Group: %s | Type: %s%n",
+            System.out.printf("%s | %s - %s | Module: %s | Room: %s | Group: %s | Type: %s%n",
                     slot.getDay(),
                     slot.getStartTime(),
                     slot.getEndTime(),
@@ -67,6 +78,10 @@ public class LecturerMenu {
         }
     }
 
+    /**
+     * View a timetable directly.
+     * @param timetable timetable object
+     */
     public static void viewTimetable(Timetable timetable) {
         if (timetable.getSlots().isEmpty()) {
             System.out.println("No timetable slots found.");
@@ -74,9 +89,8 @@ public class LecturerMenu {
         }
 
         System.out.println("\n=== TIMETABLE ===");
-
         for (TimetableSlot slot : timetable.getSlots()) {
-            System.out.printf("%s | %s - %s | Module: %s | Room: %s | Student Group: %s | Type: %s%n",
+            System.out.printf("%s | %s - %s | Module: %s | Room: %s | Group: %s | Type: %s%n",
                     slot.getDay(),
                     slot.getStartTime(),
                     slot.getEndTime(),
@@ -88,6 +102,10 @@ public class LecturerMenu {
         }
     }
 
+    /**
+     * Read integer input safely.
+     * @return integer entered
+     */
     private static int getIntInput() {
         while (true) {
             String input = scanner.nextLine().trim();

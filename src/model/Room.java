@@ -1,12 +1,19 @@
 package model;
 
 /**
- * Represents a generic room in the university.
+ * Represents a room in the university.
  */
 public class Room {
-    private String type, number;
+    private String type;
+    private String number;
     private int capacity;
 
+    /**
+     * Create a room.
+     * @param number room number
+     * @param type room type
+     * @param capacity room capacity
+     */
     public Room(String number, String type, int capacity) {
         this.type = type;
         this.number = number;
@@ -14,24 +21,34 @@ public class Room {
     }
 
     /**
-     * Returns the capacity of the room.
-     * @return room capacity
+     * Get room capacity.
+     * @return capacity
      */
     public int getCapacity() {
         return capacity;
     }
 
     /**
-     * Returns the room number.
-     * @return room name
+     * Get room number.
+     * @return number
      */
     public String getNumber() {
         return number;
     }
 
+    /**
+     * Get room type.
+     * @return type
+     */
     public String getType() {
         return type;
     }
 
-    public void setNumber(String number) {}
+    /**
+     * Set room number.
+     * @param number new number
+     */
+    public void setNumber(String number) {
+        this.number = number;
+    }
 }

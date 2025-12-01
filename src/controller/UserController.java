@@ -17,35 +17,36 @@ public class UserController {
     private static final String ADMINS_FILE = "data/admins.csv";
 
     /**
-     * Attempts to log a user in.
-     * @param idInput id input
-     * @param password password input
-     * @return the authenticated user, or null if login fails
+     * Try to log a user in by checking student, lecturer, and admin CSV files.
+     * @param idInput user ID
+     * @param password user password
+     * @return authenticated user or null
      */
     public User login(String idInput, String password) {
-        // Try students
         User user = loginFromCSV(STUDENTS_FILE, idInput, password, "STUDENT");
         if (user != null) return user;
 
-        // Try lecturers
         user = loginFromCSV(LECTURERS_FILE, idInput, password, "LECTURER");
         if (user != null) return user;
 
-        // Try admins
         return loginFromCSV(ADMINS_FILE, idInput, password, "ADMIN");
     }
 
-
+    /**
+     * Check a specific CSV file for a matching user.
+     * @param file CSV file path
+     * @param idInput user ID
+     * @param password user password
+     * @param role role type (STUDENT, LECTURER, ADMIN)
+     * @return authenticated user or null
+     */
     private User loginFromCSV(String file, String idInput, String password, String role) {
         String[][] rows = csvUtil.readCSV(file);
 
         for (int i = 1; i < rows.length; i++) { // skip header
             String[] row = rows[i];
 
-            if (row.length < 4) {
-                // skip blank or malformed rows
-                continue;
-            }
+            if (row.length < 4) continue;
 
             String id = row[0];
             String name = row[1];
@@ -61,12 +62,19 @@ public class UserController {
                 return createUser(id, name, email, storedPassword, role, studentGroupId);
             }
         }
-
         return null;
     }
 
-
-
+    /**
+     * Create a user object based on role.
+     * @param id user ID
+     * @param name user name
+     * @param email user email
+     * @param password user password
+     * @param role role type
+     * @param studentGroupId student group ID (students only)
+     * @return user object
+     */
     private User createUser(String id, String name, String email, String password, String role, String studentGroupId) {
         switch (role.toUpperCase()) {
             case "ADMIN":
@@ -74,7 +82,6 @@ public class UserController {
             case "LECTURER":
                 return new Lecturer(id, name, email, password);
             case "STUDENT":
-                // assign studentGroupId here
                 return new Student(name, password, id, null, 1, studentGroupId);
             default:
                 throw new IllegalArgumentException("Unknown role: " + role);

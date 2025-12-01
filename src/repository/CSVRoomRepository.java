@@ -6,27 +6,37 @@ import util.CSVUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repository for managing rooms in a CSV file.
+ */
 public class CSVRoomRepository implements RoomRepository {
     private final String file;
     private final CSVUtil csvUtil = new CSVUtil();
 
+    /**
+     * Create a room repository.
+     * @param file path to CSV file
+     */
     public CSVRoomRepository(String file) {
         this.file = file;
     }
 
+    /**
+     * Save a new room.
+     * @param room room object
+     * @return true if saved
+     */
     @Override
     public boolean save(Room room) {
         try {
             String[][] rows = csvUtil.readCSV(file);
 
-            // Build new row
             String[] newRow = {
                     room.getNumber(),
                     room.getType(),
                     String.valueOf(room.getCapacity())
             };
 
-            // Append
             String[][] updated = new String[rows.length + 1][];
             System.arraycopy(rows, 0, updated, 0, rows.length);
             updated[rows.length] = newRow;
@@ -39,6 +49,11 @@ public class CSVRoomRepository implements RoomRepository {
         }
     }
 
+    /**
+     * Delete a room by number.
+     * @param number room number
+     * @return true if deleted
+     */
     @Override
     public boolean delete(String number) {
         try {
@@ -48,7 +63,7 @@ public class CSVRoomRepository implements RoomRepository {
 
             for (String[] row : rows) {
                 if (row[0].equals(number)) {
-                    deleted = true; // skip this row
+                    deleted = true;
                 } else {
                     updated.add(row);
                 }
@@ -64,6 +79,11 @@ public class CSVRoomRepository implements RoomRepository {
         }
     }
 
+    /**
+     * Find a room by number.
+     * @param number room number
+     * @return room or null
+     */
     @Override
     public Room findByNumber(String number) {
         try {

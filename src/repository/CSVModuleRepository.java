@@ -6,20 +6,31 @@ import util.CSVUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Repository for managing modules in a CSV file.
+ */
 public class CSVModuleRepository implements ModuleRepository {
     private final String file;
     private final CSVUtil csvUtil = new CSVUtil();
 
+    /**
+     * Create a module repository.
+     * @param file path to CSV file
+     */
     public CSVModuleRepository(String file) {
         this.file = file;
     }
 
+    /**
+     * Save a new module.
+     * @param module module object
+     * @return true if saved
+     */
     @Override
     public boolean save(Module module) {
         try {
             String[][] rows = csvUtil.readCSV(file);
 
-            // Build new row
             String[] newRow = {
                     module.getCode(),
                     module.getTitle(),
@@ -28,7 +39,6 @@ public class CSVModuleRepository implements ModuleRepository {
                     String.valueOf(module.getTutorialHours()),
             };
 
-            // Append
             String[][] updated = new String[rows.length + 1][];
             System.arraycopy(rows, 0, updated, 0, rows.length);
             updated[rows.length] = newRow;
@@ -41,6 +51,11 @@ public class CSVModuleRepository implements ModuleRepository {
         }
     }
 
+    /**
+     * Delete a module by code.
+     * @param code module code
+     * @return true if deleted
+     */
     @Override
     public boolean delete(String code) {
         try {
@@ -50,7 +65,7 @@ public class CSVModuleRepository implements ModuleRepository {
 
             for (String[] row : rows) {
                 if (row[0].equals(code)) {
-                    deleted = true; // skip this row
+                    deleted = true;
                 } else {
                     updated.add(row);
                 }
@@ -66,6 +81,11 @@ public class CSVModuleRepository implements ModuleRepository {
         }
     }
 
+    /**
+     * Find a module by code.
+     * @param code module code
+     * @return module or null
+     */
     @Override
     public Module findByCode(String code) {
         try {
@@ -79,12 +99,11 @@ public class CSVModuleRepository implements ModuleRepository {
                             row[1], // title
                             Integer.parseInt(row[2]), // lectureHours
                             Integer.parseInt(row[3]), // labHours
-                            Integer.parseInt(row[4]),  // tutorialHours
-                            Integer.parseInt(row[5]),
-                            Integer.parseInt(row[6]),
-                            row[7],
-                            row[8]
-
+                            Integer.parseInt(row[4]), // tutorialHours
+                            0, // year (default)
+                            0, // semester (default)
+                            "", // weeks (default)
+                            ""  // programmeCode (default)
                     );
                 }
             }

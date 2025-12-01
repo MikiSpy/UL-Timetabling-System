@@ -1,19 +1,28 @@
 package controller;
+
 import model.*;
-import model.Module;
 import repository.*;
 
 /**
- * Handles operations related to timetable queries.
+ * Handles timetable operations for students, lecturers, and admins.
  */
 public class TimetableController {
 
     private TimetableRepository repo;
 
+    /**
+     * Create a controller with the given repository.
+     * @param repo timetable repository
+     */
     public TimetableController(TimetableRepository repo) {
         this.repo = repo;
     }
 
+    /**
+     * Get a timetable for a user.
+     * @param user student, lecturer or admin
+     * @return timetable for that user
+     */
     public Timetable getTimetableForUser(User user) {
         if (user instanceof Student) {
             return getTimetableForStudent((Student) user);
@@ -26,62 +35,57 @@ public class TimetableController {
         }
     }
 
+    /**
+     * Get timetable slots for a student’s group.
+     * @param student student object
+     * @return timetable with matching slots
+     */
     private Timetable getTimetableForStudent(Student student) {
-        Timetable allSlots = repo.findAll(); // load all slots from CSV
+        Timetable allSlots = repo.findAll();
         Timetable studentTimetable = new Timetable();
 
-        // get the student's group ID
         String studentGroupId = student.getStudentGroupId();
-        System.out.println("Student group ID: " + studentGroupId);
-
 
         for (TimetableSlot slot : allSlots.getSlots()) {
             if (slot == null) continue;
-
-            // Only add slots that match the student's group
             if (studentGroupId != null && studentGroupId.equals(slot.getStudentGroupId())) {
                 studentTimetable.addSlot(slot);
             }
         }
-
-        if (studentTimetable.getSlots().isEmpty()) {
-            System.out.println("No matching timetable slots found for student group: " + studentGroupId);
-        }
-
         return studentTimetable;
     }
 
-
-
+    /**
+     * Get timetable slots taught by a lecturer.
+     * @param lecturer lecturer object
+     * @return timetable with matching slots
+     */
     private Timetable getTimetableForLecturer(Lecturer lecturer) {
-        Timetable allSlots = repo.findAll(); // load all slots from CSV
+        Timetable allSlots = repo.findAll();
         Timetable lecturerTimetable = new Timetable();
 
-        String lecturerId = lecturer.getId(); // or getLecturerId() if your Lecturer class has that
+        String lecturerId = lecturer.getId();
 
         for (TimetableSlot slot : allSlots.getSlots()) {
             if (slot == null || slot.getLecturer() == null) continue;
-
             if (slot.getLecturer().getId().equals(lecturerId)) {
                 lecturerTimetable.addSlot(slot);
             }
         }
-
-        if (lecturerTimetable.getSlots().isEmpty()) {
-            System.out.println("No matching timetable slots found for lecturer: " + lecturer.getName());
-        }
-
         return lecturerTimetable;
     }
 
+    /**
+     * Filter timetable by programme code.
+     * @param programmeCode code of programme
+     * @return timetable with matching slots
+     */
     public Timetable getTimetableByProgrammeCode(String programmeCode) {
         Timetable allSlots = repo.findAll();
         Timetable filtered = new Timetable();
 
         for (TimetableSlot slot : allSlots.getSlots()) {
             if (slot == null || slot.getModule() == null) continue;
-
-            // Compare programme code (3rd column in CSV)
             if (slot.getModule().getProgrammeCode() != null &&
                     slot.getModule().getProgrammeCode().equalsIgnoreCase(programmeCode)) {
                 filtered.addSlot(slot);
@@ -90,15 +94,17 @@ public class TimetableController {
         return filtered;
     }
 
-
-
+    /**
+     * Filter timetable by module code.
+     * @param moduleCode code of module
+     * @return timetable with matching slots
+     */
     public Timetable getTimetableByModule(String moduleCode) {
         Timetable allSlots = repo.findAll();
         Timetable filtered = new Timetable();
 
         for (TimetableSlot slot : allSlots.getSlots()) {
             if (slot == null || slot.getModule() == null) continue;
-
             if (slot.getModule().getCode().equalsIgnoreCase(moduleCode)) {
                 filtered.addSlot(slot);
             }
@@ -106,71 +112,67 @@ public class TimetableController {
         return filtered;
     }
 
+    /**
+     * Update a field in a timetable slot.
+     * @param slot timetable slot
+     * @param fieldChoice which field to change
+     * @param newValue new value
+     * @return true if updated
+     */
     public boolean updateSlotField(TimetableSlot slot, int fieldChoice, String newValue) {
         try {
             switch (fieldChoice) {
-
-                case 1: // Day
-                    slot.setDay(newValue);
-                    break;
-
-                case 2: // Start Time
-                    slot.setStartTime(java.time.LocalTime.parse(newValue));
-                    break;
-
-                case 3: // End Time
-                    slot.setEndTime(java.time.LocalTime.parse(newValue));
-                    break;
-
-                case 4: // Room
-                    slot.getRoom().setNumber(newValue);
-                    break;
-
-                case 5: // Lecturer
-                    slot.getLecturer().setId(newValue);
-                    break;
-
-                case 6: // Student Group
-                    slot.setStudentGroupId(newValue);
-                    break;
-
-                case 7: // Type
-                    slot.setType(SessionType.valueOf(newValue.toUpperCase()));
-                    break;
-
-                default:
-                    System.out.println("Unknown field choice.");
-                    return false;
+                case 1 -> slot.setDay(newValue);
+                case 2 -> slot.setStartTime(java.time.LocalTime.parse(newValue));
+                case 3 -> slot.setEndTime(java.time.LocalTime.parse(newValue));
+                case 4 -> slot.getRoom().setNumber(newValue);
+                case 5 -> slot.getLecturer().setId(newValue);
+                case 6 -> slot.setStudentGroupId(newValue);
+                case 7 -> slot.setType(SessionType.valueOf(newValue.toUpperCase()));
+                default -> { return false; }
             }
-
-            // REWRITE THE CSV
             return repo.overwriteAllSlots(repo.findAll());
-
         } catch (Exception e) {
-            System.out.println("Error updating slot: " + e.getMessage());
             return false;
         }
     }
 
-
-
+    /**
+     * Admins don’t have a personal timetable.
+     * @param admin admin object
+     * @return empty timetable
+     */
     private Timetable getTimetableForAdmin(Admin admin) {
         return new Timetable();
     }
 
-    public boolean deleteSlot(TimetableSlot slot){
+    /**
+     * Delete a timetable slot.
+     * @param slot timetable slot
+     * @return true if deleted
+     */
+    public boolean deleteSlot(TimetableSlot slot) {
         return repo.deleteSlot(slot);
     }
 
-    public boolean addTimetableSlot(TimetableSlot slot){
+    /**
+     * Add a new timetable slot.
+     * @param slot timetable slot
+     * @return true if saved
+     */
+    public boolean addTimetableSlot(TimetableSlot slot) {
         return repo.saveSlot(slot);
     }
 
-    public Module getModule(String moduleCode){
+    /**
+     * Find a module by code.
+     * @param moduleCode code of module
+     * @return module or null
+     */
+    public model.Module getModule(String moduleCode) {
         Timetable allSlots = repo.findAll();
-
-        for(TimetableSlot slot : allSlots.getSlots()){
-            if(slot.getModule().getCode().equalsIgnoreCase(moduleCode)){
+        for (TimetableSlot slot : allSlots.getSlots()) {
+            if (slot.getModule().getCode().equalsIgnoreCase(moduleCode)) {
                 return slot.getModule();
             }
         }

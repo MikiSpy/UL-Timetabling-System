@@ -4,10 +4,19 @@ import controller.*;
 import model.*;
 import java.util.Scanner;
 
+/**
+ * Student menu for viewing timetables and schedules.
+ */
 public class StudentMenu {
 
     private static final Scanner scanner = new Scanner(System.in);
 
+    /**
+     * Show student menu and handle input.
+     * @param userController user controller
+     * @param student student user
+     * @param timetableController timetable controller
+     */
     public static void showMenu(UserController userController, Student student, TimetableController timetableController) {
         while (true) {
             System.out.println("\n=== STUDENT TIMETABLE MENU ===");
@@ -20,31 +29,33 @@ public class StudentMenu {
             int choice = getIntInput();
 
             switch (choice) {
-                case 1:
-                    viewTimetable(student, timetableController);
-                    break;
-                case 2:
-                    System.out.print("Enter the programme code: ");
+                case 1 -> viewTimetable(student, timetableController);
+                case 2 -> {
+                    System.out.print("Enter programme code: ");
                     String programmeCode = scanner.nextLine().trim();
                     Timetable programmeTimetable = timetableController.getTimetableByProgrammeCode(programmeCode);
                     viewTimetable(programmeTimetable);
-                    break;
-                case 3: // View by Module
+                }
+                case 3 -> {
                     System.out.print("Enter module code: ");
                     String moduleCode = scanner.nextLine().trim();
                     Timetable moduleTimetable = timetableController.getTimetableByModule(moduleCode);
                     viewTimetable(moduleTimetable);
-                    break;
-
-                case 0:
+                }
+                case 0 -> {
                     System.out.println("Logging out...");
                     return;
-                default:
-                    System.out.println("Invalid option.");
+                }
+                default -> System.out.println("Invalid option.");
             }
         }
     }
 
+    /**
+     * View timetable for a student.
+     * @param student student user
+     * @param timetableController timetable controller
+     */
     public static void viewTimetable(Student student, TimetableController timetableController) {
         Timetable timetable = timetableController.getTimetableForUser(student);
 
@@ -54,7 +65,6 @@ public class StudentMenu {
         }
 
         System.out.println("\n=== STUDENT TIMETABLE ===");
-
         for (TimetableSlot slot : timetable.getSlots()) {
             System.out.printf("%s | %s - %s | Module: %s | Room: %s | Lecturer: %s | Type: %s%n",
                     slot.getDay(),
@@ -68,6 +78,10 @@ public class StudentMenu {
         }
     }
 
+    /**
+     * View a timetable directly.
+     * @param timetable timetable object
+     */
     public static void viewTimetable(Timetable timetable) {
         if (timetable.getSlots().isEmpty()) {
             System.out.println("No timetable slots found.");
@@ -75,7 +89,6 @@ public class StudentMenu {
         }
 
         System.out.println("\n=== TIMETABLE ===");
-
         for (TimetableSlot slot : timetable.getSlots()) {
             System.out.printf("%s | %s - %s | Module: %s | Room: %s | Lecturer: %s | Type: %s%n",
                     slot.getDay(),
@@ -89,7 +102,10 @@ public class StudentMenu {
         }
     }
 
-
+    /**
+     * Read integer input safely.
+     * @return integer entered
+     */
     private static int getIntInput() {
         while (true) {
             String input = scanner.nextLine().trim();
